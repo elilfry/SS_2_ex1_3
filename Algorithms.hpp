@@ -44,7 +44,7 @@ This fucntion check if the graph is bipartite.
  @param graph - the graph to check if it is bipartite
  
 */
- int isBipartiteGraph(Graph graph);
+static int isBipartite(Graph graph);
 
 /*
  This function checks if a negative cycle exists in the graph.
