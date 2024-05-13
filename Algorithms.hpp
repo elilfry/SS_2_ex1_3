@@ -5,6 +5,13 @@
 
 #include "Graph.hpp"
 #include <vector>
+#include <string>
+#include <queue>
+#include <iostream>
+#include <stack>
+
+using std::string;
+
 
 
 namespace ariel {
@@ -44,7 +51,7 @@ This fucntion check if the graph is bipartite.
  @param graph - the graph to check if it is bipartite
  
 */
-static int isBipartite(Graph graph);
+static string isBipartite(Graph graph);
 
 /*
  This function checks if a negative cycle exists in the graph.

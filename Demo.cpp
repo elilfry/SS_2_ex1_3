@@ -1,35 +1,3 @@
-// #include "Graph.hpp"
-// #include "Algorithms.hpp"
-
-// #include <iostream>
-// #include <stdexcept>
-// #include <vector>
-
-// using namespace std;
-// using namespace ariel;
-
-// int main() {
-//     Graph g;
-
-//     // 3x3 matrix that represents a connected graph.
-//     std::vector<std::vector<int>> graph1 = {
-//         {0, 1, 0},
-//         {1, 0, 1},
-//         {0, 1, 0}};
-//     try {
-//         g.loadGraph(graph1);
-//         g.printGraph();
-//         cout << "Is connected: " << Algorithms::isConnected(g) << endl;
-//     } catch (const std::invalid_argument& e) {
-//         cout << "Error loading graph: " << e.what() << endl;
-//     }
-
-//     // Load and test other graphs as in the provided Demo.cpp
-//     // Remember to catch exceptions and handle accordingly
-
-//     return 0;
-// }
-
 
 
 /*
