@@ -28,7 +28,7 @@ int main()
 
     g.printGraph();                                    // Should print: "Graph with 3 vertices and 4 edges."
     cout << Algorithms::isConnected(g) << endl;        // Should print: "1" (true).
-    // cout << Algorithms::shortestPath(g, 0, 2) << endl; // Should print: 0->1->2.
+    cout << Algorithms::shortestPath(g, 0, 2) << endl; // Should print: 0->1->2.
     // cout << Algorithms::isContainsCycle(g) << endl;    // Should print: "0" (false).
     cout << Algorithms::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={0, 2}, B={1}."
 
@@ -44,7 +44,7 @@ int main()
 
     g.printGraph();                                    // Should print: "Graph with 5 vertices and 8 edges."
     cout << Algorithms::isConnected(g) << endl;        // Should print: "0" (false).
-    // cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: "-1" (there is no path between 0 and 4).
+    cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: "-1" (there is no path between 0 and 4).
     // cout << Algorithms::isContainsCycle(g) << endl;    // Should print: "The cycle is: 0->1->2->0".
     cout << Algorithms::isBipartite(g) << endl;        // Should print: "0" (false).
 
@@ -59,7 +59,7 @@ int main()
 
     g.printGraph();                                    // Should print: "Graph with 5 vertices and 10 edges."
     cout << Algorithms::isConnected(g) << endl;        // Should print: "1" (true).
-    // cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: 0->2->3->4.
+    cout << Algorithms::shortestPath(g, 0, 4) << endl; // Should print: 0->2->3->4.
     // cout << Algorithms::isContainsCycle(g) << endl;    // Should print: "0" (false).
      cout << Algorithms::isBipartite(g) << endl;        // Should print: "The graph is bipartite: A={0, 2, 4}, B={1, 3}."
 

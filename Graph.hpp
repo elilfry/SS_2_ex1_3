@@ -33,13 +33,13 @@ the function print the graph
 void printGraph();
 
 
-bool isWeightedGraph(const Graph g);
+bool isWeightedGraph();
 
-bool isDirectedGraph(const Graph g);
+bool isDirectedGraph();
 
-bool isNegativeWeightedGraph(const Graph g);
+bool isNegativeWeightedGraph();
 
-
+size_t getWeight(size_t src, size_t dest);
  
 };
 }

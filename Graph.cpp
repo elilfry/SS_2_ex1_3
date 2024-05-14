@@ -54,12 +54,13 @@ namespace ariel {
 /*
 this function check if the graph is connected
 */
-bool Graph::isWeightedGraph(const Graph g){
+bool Graph::isWeightedGraph(){
+   
 
-    size_t size = g.adjMatrix.size();
+    size_t size = adjMatrix.size();
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
-            if ( g.adjMatrix[i][j] != 1 && g.adjMatrix[i][j] != 0) { 
+            if ( adjMatrix[i][j] != 1 && adjMatrix[i][j] != 0) { 
                 return true;
             }
         }
@@ -72,11 +73,11 @@ this function check if the graph is directed
 if the graph is syimetric the graph is not directed -false
 if the graph is  not syimetric the graph is directed - true
 */
-bool Graph::isDirectedGraph(const Graph g){ 
-    size_t size = g.adjMatrix.size();
+bool Graph::isDirectedGraph(){ 
+    size_t size = adjMatrix.size();
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
-            if (g.adjMatrix[i][j] != g.adjMatrix[j][i]) { 
+            if (adjMatrix[i][j] != adjMatrix[j][i]) { 
                 return true;
             }
         }
@@ -106,11 +107,11 @@ size_t Graph::getSize() {
 /*
 this function check if the graph has negative weight
 */
-bool  Graph::isNegativeWeightedGraph(const Graph g){
-    size_t size = g.adjMatrix.size();
+bool  Graph::isNegativeWeightedGraph(){
+    size_t size = adjMatrix.size();
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
-            if (g.adjMatrix[i][j] < 0) { 
+            if (adjMatrix[i][j] < 0) { 
                 return true;
             }
         }
@@ -118,8 +119,11 @@ bool  Graph::isNegativeWeightedGraph(const Graph g){
     return false;
 }
 
+//getWeight
 
-
+size_t Graph::getWeight(size_t src, size_t dest) {
+    return (size_t) adjMatrix[src][dest];
+}
 
 
 } // namespace ariel

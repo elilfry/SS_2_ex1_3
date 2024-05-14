@@ -9,6 +9,10 @@
 #include <queue>
 #include <iostream>
 #include <stack>
+#include <algorithm>
+#include <limits>
+
+
 
 using std::string;
 
@@ -42,7 +46,22 @@ the function return a cycle in the graph,if there is no cycle the function retur
 */
  int isContainsCycle(Graph graph);
 
- int shortestPath(Graph graph, size_t start, size_t end);
+ static string shortestPath(Graph graph, size_t start, size_t end);
+
+/*
+the function return the shortest path between two vertex using bfs algorithm
+
+*/
+static string  bfs(Graph& graph, size_t src, size_t dest);
+
+
+static string  bellmanFord(Graph&  graph, size_t src, size_t dest);
+
+
+
+static string  dijkstra(Graph graph, size_t src, size_t dest);
+
+
 
 /*
 This fucntion check if the graph is bipartite.
@@ -62,4 +81,6 @@ static string isBipartite(Graph graph);
 
     };
 }
-#endif // ALGORITHMS_HPP
+
+#endif 
+
