@@ -101,6 +101,9 @@ namespace ariel
             }
 
      string Algorithms:: bfs(Graph& graph, size_t src, size_t dest) {
+        static int count = 0;
+        count++;
+        cout <<  "bfs for the " << count << " time" << endl;
         size_t numVertices = graph.getSize();
         std::vector<bool> color(numVertices, 0); // 0 - white, 1 - gray, 2 - black
         std::vector<int> parent(numVertices, -1); // Vector to keep track of the parent of each vertex in the BFS traversal
@@ -159,6 +162,7 @@ namespace ariel
      }  
 
      string Algorithms:: bellmanFord(Graph& graph, size_t src, size_t dest) {
+        cout << "Bellman-Ford algorithm" << endl;
         
         size_t numVertices = graph.getSize();
         std::vector<int> distance(numVertices, INT_MAX); // Vector to keep track of the distance of each vertex from the source vertex
@@ -171,8 +175,9 @@ namespace ariel
             for (size_t u = 0; u < numVertices; u++) {
                 std::vector<int> neighbors = graph.getNeighbors(u); // Get the neighbors of vertex u
                 for (int v : neighbors) {
-                    if (distance[(size_t)u] != INT_MAX && distance[(size_t)u] + graph.getWeight(u, v) < distance[(size_t)v]) {
-                        distance[(size_t)v] = distance[(size_t)u] + graph.getWeight(u, v);
+                    int weight = graph.getWeight(u, (size_t)v);
+                    if (distance[u] != INT_MAX && distance[u] + weight< distance[(size_t)v]) {
+                        distance[(size_t)v] = distance[u] + weight; //relax the edge
                         parent[(size_t)v] = u;
                     }
                 }
@@ -184,7 +189,7 @@ namespace ariel
         for (size_t u = 0; u < numVertices; u++) {
             std::vector<int> neighbors = graph.getNeighbors(u); // Get the neighbors of vertex u
             for (int v : neighbors) {
-                if (distance[u] != INT_MAX && distance[u] + graph.getWeight(u, v) < distance[v]) {
+                if (distance[u] != INT_MAX && distance[u] + graph.getWeight(u, (size_t)v) < distance[(size_t)v]) {
                     return "Negative cycle exists in the graph.";
                 }
             }
@@ -207,13 +212,71 @@ namespace ariel
                 result += " -> ";
             }
         }
+        return result;
 
      }
 
 
     string Algorithms:: dijkstra(Graph graph, size_t src, size_t dest) {
-        return "1";
-    }
+        cout << "Dijkstra algorithm" << endl;
+        size_t numVertices = graph.getSize();
+        std::vector<int> distance(numVertices, INT_MAX); // Vector to keep track of the distance of each vertex from the source vertex
+        std::vector<int> parent(numVertices, -1); // Vector to keep track of the parent of each vertex in the shortest path
+        std::vector<bool> visited(numVertices, false); // Vector to keep track of the visited vertices
+
+        distance[src] = 0; // Distance of the source vertex from itself is 0
+
+        // Create a priority queue to store vertices that are being preprocessed
+        std::priority_queue<std::pair<int, int>, std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
+        pq.push({0, src}); // Push the source vertex to the priority queue
+
+        while (!pq.empty()) {
+            int u = pq.top().second; // Get the vertex with the minimum distance from the priority queue
+            pq.pop(); // Pop the vertex from the priority queue
+
+            if (visited[(size_t)u]) {
+                continue; // If the vertex is already visited, skip it
+            }
+
+            visited[(size_t)u] = true; // Mark the vertex as visited
+
+            std::vector<int> neighbors = graph.getNeighbors((size_t)u); // Get the neighbors of the current vertex
+            for (int v : neighbors) {
+                int weight = graph.getWeight((size_t)u, (size_t)v);
+                if (distance[(size_t)u] != INT_MAX && distance[(size_t)u] + weight < distance[(size_t)v]) {
+                    distance[(size_t)v] = distance[(size_t)u] + weight; // Update the distance of the neighbor if a shorter path is found
+                    parent[(size_t)v] = u; // Update the parent of the neighbor
+                    pq.push({distance[(size_t)v], v}); // Push the neighbor to the priority queue
+                }
+            }
+        }
+
+        // If the destination vertex is not reachable 
+        if (distance[(size_t)dest] == INT_MAX) {
+            return "No path exists between the source and destination vertices.";
+        }
+
+        //print the path
+        std::vector<int> path;
+        int currVertex = dest;
+        while (currVertex != -1) {
+            path.push_back(currVertex);
+            currVertex = parent[(size_t)currVertex];
+        }
+
+        std::reverse(path.begin(), path.end());
+
+        string result = "The shortest path from " + std::to_string(src) + " to " + std::to_string(dest) + " is: ";
+        for (size_t i = 0; i < path.size(); i++) {
+            result += std::to_string(path[i]);
+            if (i != path.size() - 1) {
+                result += " -> ";
+            }
+        }
+        return result;
+
+
+            }
 
 
     

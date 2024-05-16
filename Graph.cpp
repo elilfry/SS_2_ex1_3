@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include "Graph.hpp"
-
 using namespace std;
 
 namespace ariel {
@@ -16,19 +15,19 @@ namespace ariel {
         
         for (size_t i = 0; i < graph.size(); i++) {
             if (graph[i].size() != graph.size()) {
-                throw ("The graph is not a square matrix.");
+               throw invalid_argument(" Invalid_argument-The graph is not a square matrix.");
             }
         }
 
         // Check if the graph is empty.
         if (graph.size() == 0) {
-            throw ("The graph is empty.");
+            throw invalid_argument(" Invalid_argument-The graph is empty.");
         }
 
         // Check if the graph has a self loop
         for (size_t i = 0; i < graph.size(); i++) {
             if (graph[i][i] != 0) {
-                throw ("The graph has a self loop.");
+                throw invalid_argument(" Invalid_argument-The graph has a self loop.");
             }
         }
 
@@ -55,16 +54,19 @@ namespace ariel {
 this function check if the graph is connected
 */
 bool Graph::isWeightedGraph(){
-   
 
     size_t size = adjMatrix.size();
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
             if ( adjMatrix[i][j] != 1 && adjMatrix[i][j] != 0) { 
+                  cout << "is Weighted Graph" << endl;
+
                 return true;
             }
         }
     }
+       cout << "is not WeightedG raph" << endl;
+
     return false;
 }
 
@@ -78,15 +80,42 @@ bool Graph::isDirectedGraph(){
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
             if (adjMatrix[i][j] != adjMatrix[j][i]) { 
+                    cout << "isDirectedGraph" << endl;
                 return true;
             }
         }
     }
+        cout << "is not Directed Graph" << endl;
+
     return false;
 }
 
-//get neighbors of a vertex
+size_t Graph::getNumberOfEdges() {
+    size_t size = adjMatrix.size();
+    int numEdges = 0;
+    
+    if(isDirectedGraph()){ // if the graph is directed
+        for (size_t i = 0; i < size; i++) {
+            for (size_t j = 0; j < size; j++) {
+                if (adjMatrix[i][j] != 0) {
+                    numEdges++;
+                }
+            }
+        }
+        return numEdges;
+    }
+    else{ // undirected graph
+        for (size_t i = 0; i < size; i++) {
+            for (size_t j = i; j < size; j++) {
+                if (adjMatrix[i][j] != 0) {
+                    numEdges++;
+                }
+            }
+        }
+        return numEdges;
+    }
 
+}
 std::vector<int> Graph::getNeighbors(size_t vertex) {
     std::vector<int> neighbors;
     size_t size = adjMatrix.size();
@@ -121,10 +150,13 @@ bool  Graph::isNegativeWeightedGraph(){
 
 //getWeight
 
-size_t Graph::getWeight(size_t src, size_t dest) {
-    return (size_t) adjMatrix[src][dest];
+int Graph::getWeight(size_t src, size_t dest) {
+    return  adjMatrix[src][dest];
 }
 
+size_t Graph::getNumberOfVertices() {
+    return adjMatrix.size();
+}
 
 } // namespace ariel
 

@@ -50,9 +50,9 @@ int main()
 
     // 5x5 matrix that reprsents a connected weighted graph.
     std::vector<std::vector<int>> graph3 = {
-        {0, 1, 2, 0, 0},
+        {0, 1, 0, 0, 0},
         {1, 0, 3, 0, 0},
-        {2, 3, 0, 4, 0},
+        {0, 3, 0, 4, 0},
         {0, 0, 4, 0, 5},
         {0, 0, 0, 5, 0}};
     g.loadGraph(graph3); // Load the graph to the object.
