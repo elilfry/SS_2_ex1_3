@@ -59,13 +59,11 @@ bool Graph::isWeightedGraph(){
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
             if ( adjMatrix[i][j] != 1 && adjMatrix[i][j] != 0) { 
-                  cout << "is Weighted Graph" << endl;
 
                 return true;
             }
         }
     }
-       cout << "is not WeightedG raph" << endl;
 
     return false;
 }
@@ -80,12 +78,11 @@ bool Graph::isDirectedGraph(){
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
             if (adjMatrix[i][j] != adjMatrix[j][i]) { 
-                    cout << "isDirectedGraph" << endl;
                 return true;
             }
         }
     }
-        cout << "is not Directed Graph" << endl;
+       
 
     return false;
 }
@@ -102,7 +99,7 @@ size_t Graph::getNumberOfEdges() {
                 }
             }
         }
-        return numEdges;
+        return (size_t)numEdges;
     }
     else{ // undirected graph
         for (size_t i = 0; i < size; i++) {
@@ -112,7 +109,7 @@ size_t Graph::getNumberOfEdges() {
                 }
             }
         }
-        return numEdges;
+        return (size_t)numEdges;
     }
 
 }

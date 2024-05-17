@@ -34,17 +34,21 @@ the function check if the graph is connected
 static void dfs(Graph graph, std::vector<bool>& visited, size_t node) ;
 
 
+static bool isCycleUndirected(Graph graph, size_t node, int parent, std::vector<bool>& visited , std::vector<int>& path) ;
+
+static bool isCycleDirected(Graph graph, size_t node, std::vector<bool>& visited, std::vector<bool>& recStack, std::vector<int>& path) ;
+
 /*
 the function return the light path between two  vertex 
 if the graph is not weighted the function return the shortest path
 if the graph is weighted the function return the light path
 if there is no path between the two vertex the function return -1
 */
+
 /*
 the function return a cycle in the graph,if there is no cycle the function return 0
-
 */
- int isContainsCycle(Graph graph);
+ static string isContainsCycle(Graph graph);
 
  static string shortestPath(Graph graph, size_t start, size_t end);
 
@@ -77,7 +81,7 @@ static string isBipartite(Graph graph);
     If a negative cycle exists, the function will return 1, else return "no negative cycle".
 
 */
- int negativeCycle(Graph graph);
+ static string negativeCycle(Graph graph);
 
     };
 }

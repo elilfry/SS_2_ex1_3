@@ -162,7 +162,6 @@ namespace ariel
      }  
 
      string Algorithms:: bellmanFord(Graph& graph, size_t src, size_t dest) {
-        cout << "Bellman-Ford algorithm" << endl;
         
         size_t numVertices = graph.getSize();
         std::vector<int> distance(numVertices, INT_MAX); // Vector to keep track of the distance of each vertex from the source vertex
@@ -218,7 +217,6 @@ namespace ariel
 
 
     string Algorithms:: dijkstra(Graph graph, size_t src, size_t dest) {
-        cout << "Dijkstra algorithm" << endl;
         size_t numVertices = graph.getSize();
         std::vector<int> distance(numVertices, INT_MAX); // Vector to keep track of the distance of each vertex from the source vertex
         std::vector<int> parent(numVertices, -1); // Vector to keep track of the parent of each vertex in the shortest path
@@ -279,13 +277,181 @@ namespace ariel
             }
 
 
-    
-    int Algorithms::isContainsCycle (Graph graph)
-            {
-                                                                    return 1;
+    bool Algorithms::isCycleDirected(Graph graph, size_t node, std::vector<bool>& visited, std::vector<bool>& recStack,std::vector<int>& path) {
+        if (!visited[node]) {
+            visited[node] = true;
+            recStack[node] = true;
+            path.push_back(node);
+            
 
-        // Implementation goes here
-                } 
+            std::vector<int> neighbors = graph.getNeighbors(node);
+            for (int neighbor : neighbors) {
+                if (!visited[(size_t)neighbor] && isCycleDirected(graph, (size_t)neighbor, visited, recStack, path)) {
+                    return true;
+                } else if (recStack[(size_t)neighbor]) {
+                    path.push_back(neighbor);
+                    return true;
+                }
+            }
+        }
+        recStack[node] = false;
+        path.pop_back();
+        return false;
+    }
+
+    bool Algorithms::isCycleUndirected(Graph graph, size_t node, int parent, std::vector<bool>& visited, std::vector<int>& path) {
+        visited[node] = true;
+
+        std::vector<int> neighbors = graph.getNeighbors(node);
+        for (int neighbor : neighbors) {
+            if (!visited[(size_t)neighbor]) {
+                if (isCycleUndirected(graph, (size_t)neighbor, node, visited, path)) {
+                    return true;
+                }
+            } else if (neighbor != parent) {
+                path.push_back(neighbor);
+                return true;
+            }
+        }
+        path.pop_back();
+        return false;
+    }
+
+    string Algorithms::isContainsCycle(Graph graph) {
+    size_t numVertices = graph.getSize();
+    std::vector<bool> visited(numVertices, false);
+    std::vector<bool> recStack(numVertices, false);
+    std::vector<int> cyclePath;
+
+    if (graph.isDirectedGraph()) {
+        for (size_t i = 0; i < numVertices; i++) {
+            if (isCycleDirected(graph, i, visited, recStack, cyclePath)) {
+                if (!cyclePath.empty()) {
+                    std::reverse(cyclePath.begin(), cyclePath.end());
+                    string result = "The cycle is: ";
+                    for (size_t j = 0; j < cyclePath.size(); j++) {
+                        result += std::to_string(cyclePath[j]);
+                        if (j != cyclePath.size() - 1) {
+                            result += " -> ";
+                        }
+                    }
+                    return result;
+                }
+            }
+        }
+    } else {
+        for (size_t i = 0; i < numVertices; i++) {
+            if (!visited[i]) {
+                cyclePath.clear();
+                if (isCycleUndirected(graph, i, -1, visited, cyclePath)) {
+                    if (!cyclePath.empty()) {
+                        string result = "The cycle is: ";
+                        for (size_t j = 0; j < cyclePath.size(); j++) {
+                            result += std::to_string(cyclePath[j]);
+                            if (j != cyclePath.size() - 1) {
+                                result += " -> ";
+                            }
+                        }
+                        return result;
+                    }
+                }
+            }
+        }
+    }
+
+    return "The graph does not contain a cycle";
+}
+
+
+    
+    // string Algorithms::isContainsCycle (Graph graph)
+    //         {
+    //         size_t numVertices = graph.getSize();
+    //         std::vector<bool> visited(numVertices, false); // Vector to keep track of the visited vertices
+    //         std::vector<bool> recStack(numVertices, false); // Vector to keep track of the vertices in the recursion stack
+
+    //         std::vector<int> cyclePath;
+
+    //         if(graph.isDirectedGraph()) 
+    //         { 
+    //             for (size_t i = 0; i < numVertices; i++) 
+    //             {
+    //                 if(isCycleDirected(graph, i, visited, recStack, cyclePath)) 
+    //                 {
+
+    //                     //print the cycle
+    //                     int currVertex = i;
+    //                     while (!recStack[(size_t)currVertex]) 
+    //                     {
+    //                         currVertex = graph.getNeighbors((size_t)currVertex)[0];
+    //                     }
+    //                     int startVertex = currVertex;
+    //                     do 
+    //                     {
+    //                         cyclePath.push_back(currVertex);
+    //                         currVertex = graph.getNeighbors((size_t)currVertex)[0];
+    //                     } while (currVertex != startVertex);
+    //                     cyclePath.push_back(startVertex);
+
+    //                     string result = "The cycle is: ";
+    //                     for (size_t i = 0; i < cyclePath.size(); i++) 
+    //                     {
+    //                         result += std::to_string(cyclePath[i]);
+    //                         if (i != cyclePath.size() - 1) 
+    //                         {
+    //                             result += " -> ";
+    //                         }
+    //                     }
+    //                     return result;
+
+
+                        
+    //                 }
+    //         }
+    //         }
+    //         else 
+    //         {
+    //             for (size_t i = 0; i < numVertices; i++) 
+    //             {
+    //                 if(isCycleUndirected(graph, i, -1, visited)) 
+    //                 {
+    //                   //print the cycle
+    //                     int currVertex = i;
+    //                     int parent = -1;
+    //                     do 
+    //                     {
+    //                         cyclePath.push_back(currVertex);
+    //                         std::vector<int> neighbors = graph.getNeighbors((size_t)currVertex);
+    //                         for (int neighbor : neighbors) 
+    //                         {
+    //                             if (neighbor != parent && visited[(size_t)neighbor]) 
+    //                             {
+    //                                 cyclePath.push_back(neighbor);
+    //                                 return "The cycle is: ";
+    //                             }
+    //                         }
+    //                         parent = currVertex;
+    //                         currVertex = graph.getNeighbors((size_t)currVertex)[0];
+    //                     } while (currVertex != i);
+    //                     cyclePath.push_back(i);
+
+    //                     string result = "The cycle is: ";
+    //                     for (size_t i = 0; i < cyclePath.size(); i++) 
+    //                     {
+    //                         result += std::to_string(cyclePath[i]);
+    //                         if (i != cyclePath.size() - 1) 
+    //                         {
+    //                             result += " -> ";
+    //                         }
+    //                     }
+    //                     return result;
+
+    //                 }
+    //             }
+    //         } 
+    //         return "The graph not contain a cycle"; // The graph does not contain a cycle
+    //         }
+            
  
 	
         
@@ -369,12 +535,52 @@ namespace ariel
 
         
     
-    int Algorithms::negativeCycle (Graph graph)
-        {
-        return 1;
+    string Algorithms::negativeCycle (Graph graph)
+    {
+    size_t numVertices = graph.getSize();
+    if(numVertices == 0)
+    {
+        return "No negative cycle -the graph have no vertex.";
+    }
+
+    size_t numEdges = graph.getNumberOfEdges();
+    if(numEdges == 0)
+    {
+        return "No negative cycle -the graph have no edge.";
+    }
+
+    if(!graph.isNegativeWeightedGraph())
+    {
+        return "No negative cycle -the graph have no negative weight.";
+    }
+
+
+    std::vector<int> distance(numVertices, 0); // Vector to keep track of the distance of each vertex from the source vertex
+
+    // Relax all edges V-1 times
+    for (size_t i = 0; i < numVertices - 1; i++) { // V-1 iterations
+        for (size_t u = 0; u < numVertices; u++) {
+            std::vector<int> neighbors = graph.getNeighbors(u); // Get the neighbors of vertex u
+            for (int v : neighbors) {
+                int weight = graph.getWeight(u, (size_t)v);
+                if (distance[u] + weight < distance[(size_t)v]) {
+                    distance[(size_t)v] = distance[u] + weight; //relax the edge
+                }
+            }
+        }
 
     } 
- 
+    // Check for negative cycles
+    for (size_t u = 0; u < numVertices; u++) {
+        std::vector<int> neighbors = graph.getNeighbors(u); // Get the neighbors of vertex u
+        for (int v : neighbors) {
+            if (distance[u] + graph.getWeight(u, (size_t)v) < distance[(size_t)v]) {
+                return "Negative cycle exists in the graph.";
+            }
+        }
+    }
+    return "No negative cycle.";
+    }
 
  
  
