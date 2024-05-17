@@ -45,7 +45,7 @@ namespace ariel
 							   
  
  
-    void Algorithms::dfs(Graph graph, vector<bool>& visited, size_t node) 
+    void Algorithms::dfs(Graph &graph, vector<bool>& visited, size_t node) 
     {
         visited[node] = true;
         std::vector<int> neighbors = graph.getNeighbors(node); // Get the neighbors of the current node.
@@ -59,7 +59,7 @@ namespace ariel
     }
 								
  
-    string Algorithms::  shortestPath (Graph graph,size_t src,size_t dest)
+    string Algorithms::  shortestPath (Graph& graph,size_t src,size_t dest)
             {
                     // check for valid source and destination vertices
                     if (src >= graph.getSize() || dest >= graph.getSize()) 
@@ -101,9 +101,7 @@ namespace ariel
             }
 
      string Algorithms:: bfs(Graph& graph, size_t src, size_t dest) {
-        static int count = 0;
-        count++;
-        cout <<  "bfs for the " << count << " time" << endl;
+        
         size_t numVertices = graph.getSize();
         std::vector<bool> color(numVertices, 0); // 0 - white, 1 - gray, 2 - black
         std::vector<int> parent(numVertices, -1); // Vector to keep track of the parent of each vertex in the BFS traversal
@@ -216,7 +214,7 @@ namespace ariel
      }
 
 
-    string Algorithms:: dijkstra(Graph graph, size_t src, size_t dest) {
+    string Algorithms:: dijkstra(Graph& graph, size_t src, size_t dest) {
         size_t numVertices = graph.getSize();
         std::vector<int> distance(numVertices, INT_MAX); // Vector to keep track of the distance of each vertex from the source vertex
         std::vector<int> parent(numVertices, -1); // Vector to keep track of the parent of each vertex in the shortest path
@@ -277,7 +275,7 @@ namespace ariel
             }
 
 
-    bool Algorithms::isCycleDirected(Graph graph, size_t node, std::vector<bool>& visited, std::vector<bool>& recStack,std::vector<int>& path) {
+    bool Algorithms::isCycleDirected(Graph& graph, size_t node, std::vector<bool>& visited, std::vector<bool>& recStack,std::vector<int>& path) {
         if (!visited[node]) {
             visited[node] = true;
             recStack[node] = true;
@@ -299,8 +297,10 @@ namespace ariel
         return false;
     }
 
-    bool Algorithms::isCycleUndirected(Graph graph, size_t node, int parent, std::vector<bool>& visited, std::vector<int>& path) {
+
+    bool Algorithms::isCycleUndirected(Graph& graph, size_t node, int parent, std::vector<bool>& visited, std::vector<int>& path) {
         visited[node] = true;
+        path.push_back(node);
 
         std::vector<int> neighbors = graph.getNeighbors(node);
         for (int neighbor : neighbors) {
@@ -317,7 +317,7 @@ namespace ariel
         return false;
     }
 
-    string Algorithms::isContainsCycle(Graph graph) {
+    string Algorithms::isContainsCycle(Graph& graph) {
     size_t numVertices = graph.getSize();
     std::vector<bool> visited(numVertices, false);
     std::vector<bool> recStack(numVertices, false);
@@ -458,7 +458,7 @@ namespace ariel
     //this fucntion check if the graph is bipartite.
     // If the graph is bipartite, then the fucntion will return the two groups, else return 0.
 
-    string Algorithms::isBipartite(Graph graph)
+    string Algorithms::isBipartite(Graph& graph)
             {
                 size_t numVertices = graph.getSize();
                 std::vector<int> color(numVertices, -1); // -1 represents uncolored, 0 represents color 1, 1 represents color 2
@@ -535,7 +535,7 @@ namespace ariel
 
         
     
-    string Algorithms::negativeCycle (Graph graph)
+    string Algorithms::negativeCycle (Graph& graph)
     {
     size_t numVertices = graph.getSize();
     if(numVertices == 0)

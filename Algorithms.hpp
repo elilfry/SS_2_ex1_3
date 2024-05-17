@@ -31,12 +31,12 @@ the function check if the graph is connected
 */
  static  int isConnected(Graph graph);
 
-static void dfs(Graph graph, std::vector<bool>& visited, size_t node) ;
+static void dfs(Graph& graph, std::vector<bool>& visited, size_t node) ;
 
 
-static bool isCycleUndirected(Graph graph, size_t node, int parent, std::vector<bool>& visited , std::vector<int>& path) ;
+static bool isCycleUndirected(Graph& graph, size_t node, int parent, std::vector<bool>& visited , std::vector<int>& path) ;
 
-static bool isCycleDirected(Graph graph, size_t node, std::vector<bool>& visited, std::vector<bool>& recStack, std::vector<int>& path) ;
+static bool isCycleDirected(Graph& graph, size_t node, std::vector<bool>& visited, std::vector<bool>& recStack, std::vector<int>& path) ;
 
 /*
 the function return the light path between two  vertex 
@@ -48,9 +48,9 @@ if there is no path between the two vertex the function return -1
 /*
 the function return a cycle in the graph,if there is no cycle the function return 0
 */
- static string isContainsCycle(Graph graph);
+ static string isContainsCycle(Graph& graph);
 
- static string shortestPath(Graph graph, size_t start, size_t end);
+ static string shortestPath(Graph& graph, size_t start, size_t end);
 
 /*
 the function return the shortest path between two vertex using bfs algorithm
@@ -63,7 +63,7 @@ static string  bellmanFord(Graph&  graph, size_t src, size_t dest);
 
 
 
-static string  dijkstra(Graph graph, size_t src, size_t dest);
+static string  dijkstra(Graph& graph, size_t src, size_t dest);
 
 
 
@@ -74,14 +74,14 @@ This fucntion check if the graph is bipartite.
  @param graph - the graph to check if it is bipartite
  
 */
-static string isBipartite(Graph graph);
+static string isBipartite(Graph& graph);
 
 /*
  This function checks if a negative cycle exists in the graph.
     If a negative cycle exists, the function will return 1, else return "no negative cycle".
 
 */
- static string negativeCycle(Graph graph);
+ static string negativeCycle(Graph& graph);
 
     };
 }
