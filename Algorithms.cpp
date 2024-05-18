@@ -135,7 +135,7 @@ namespace ariel
         }
         // If the destination vertex is not reachable from the source vertex, return "No path exists between the source and destination vertices."
         if (distance[dest] == -1) {
-            return "No path exists between the source and destination vertices.";
+            return "No path exists between the source and destination vertices";
         }
         //print the path
         
@@ -151,7 +151,7 @@ namespace ariel
             result += std::to_string(path[i]);
             if (i != path.size() - 1) 
             {
-                result += " -> ";
+                result += "->";
             }
         }
         return result;
@@ -206,7 +206,7 @@ namespace ariel
         for (size_t i = 0; i < path.size(); i++) {
             result += std::to_string(path[i]);
             if (i != path.size() - 1) {
-                result += " -> ";
+                result += "->";
             }
         }
         return result;
@@ -249,7 +249,7 @@ namespace ariel
 
         // If the destination vertex is not reachable 
         if (distance[(size_t)dest] == INT_MAX) {
-            return "No path exists between the source and destination vertices.";
+            return "No path exists between the source and destination vertices";
         }
 
         //print the path
@@ -266,7 +266,7 @@ namespace ariel
         for (size_t i = 0; i < path.size(); i++) {
             result += std::to_string(path[i]);
             if (i != path.size() - 1) {
-                result += " -> ";
+                result += "->";
             }
         }
         return result;
@@ -332,7 +332,7 @@ namespace ariel
                     for (size_t j = 0; j < cyclePath.size(); j++) {
                         result += std::to_string(cyclePath[j]);
                         if (j != cyclePath.size() - 1) {
-                            result += " -> ";
+                            result += "->";
                         }
                     }
                     return result;
@@ -349,7 +349,7 @@ namespace ariel
                         for (size_t j = 0; j < cyclePath.size(); j++) {
                             result += std::to_string(cyclePath[j]);
                             if (j != cyclePath.size() - 1) {
-                                result += " -> ";
+                                result += "->";
                             }
                         }
                         return result;
@@ -497,7 +497,7 @@ namespace ariel
                                 }
                                 else if (color[(size_t)neighbor] == color[(size_t)currVertex]) // If the neighbor has the same color as the current vertex, the graph is not bipartite
                                 {
-                                return "The graph is  not bipartite\n";
+                                return "The graph is  not bipartite";
                                 }
                             }
                         }

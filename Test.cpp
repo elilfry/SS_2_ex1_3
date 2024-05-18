@@ -32,7 +32,7 @@ TEST_CASE("Test shortestPath")
         {1, 0, 1},
         {0, 1, 0}};
     g.loadGraph(graph);
-    CHECK(ariel::Algorithms::shortestPath(g, 0, 2) == "0->1->2");
+    CHECK(ariel::Algorithms::shortestPath(g, 0, 2) == "The shortest path from 0 to 2 is: 0->1->2");
 
     vector<vector<int>> graph2 = {
         {0, 1, 1, 0, 0},
@@ -41,7 +41,7 @@ TEST_CASE("Test shortestPath")
         {0, 0, 1, 0, 0},
         {0, 0, 0, 0, 0}};
     g.loadGraph(graph2);
-    CHECK(ariel::Algorithms::shortestPath(g, 0, 4) == "-1");
+    CHECK(ariel::Algorithms::shortestPath(g, 0, 4) == "No path exists between the source and destination vertices");
 }
 TEST_CASE("Test isContainsCycle")
 {
@@ -51,7 +51,7 @@ TEST_CASE("Test isContainsCycle")
         {1, 0, 1},
         {0, 1, 0}};
     g.loadGraph(graph);
-    CHECK(ariel::Algorithms::isContainsCycle(g) == false);
+    CHECK(ariel::Algorithms::isContainsCycle(g) == "The graph does not contain a cycle");
 
     vector<vector<int>> graph2 = {
         {0, 1, 1, 0, 0},
@@ -60,7 +60,7 @@ TEST_CASE("Test isContainsCycle")
         {0, 0, 1, 0, 0},
         {0, 0, 0, 0, 0}};
     g.loadGraph(graph2);
-    CHECK(ariel::Algorithms::isContainsCycle(g) == true);
+    CHECK(ariel::Algorithms::isContainsCycle(g) == "The cycle is: 0->2->1->0");
 }
 TEST_CASE("Test isBipartite")
 {
@@ -79,7 +79,7 @@ TEST_CASE("Test isBipartite")
         {0, 0, 1, 0, 0},
         {0, 0, 0, 0, 0}};
     g.loadGraph(graph2);
-    CHECK(ariel::Algorithms::isBipartite(g) == "0");
+    CHECK(ariel::Algorithms::isBipartite(g) == "The graph is  not bipartite");
 
     vector<vector<int>> graph3 = {
         {0, 1, 2, 0, 0},
