@@ -16,7 +16,11 @@ namespace ariel
     int Algorithms::isConnected (Graph graph)
         {
         
-
+        // if the graph is empty
+        if (graph.getSize() == 0) 
+        {
+            return 0; // The graph is not connected.
+        }
     bool isDirected = graph.isDirectedGraph ();	  
     size_t numVertices = graph.getSize ();
     std::vector < bool >visited (numVertices, false);
@@ -61,6 +65,11 @@ namespace ariel
  
     string Algorithms::  shortestPath (Graph& graph,size_t src,size_t dest)
             {
+                    // if the graph is empty
+                    if (graph.getSize() == 0) 
+                    {
+                        return "The graph is empty";
+                    }
                     // check for valid source and destination vertices
                     if (src >= graph.getSize() || dest >= graph.getSize()) 
                     {
@@ -187,7 +196,7 @@ namespace ariel
             std::vector<int> neighbors = graph.getNeighbors(u); // Get the neighbors of vertex u
             for (int v : neighbors) {
                 if (distance[u] != INT_MAX && distance[u] + graph.getWeight(u, (size_t)v) < distance[(size_t)v]) {
-                    return "Negative cycle exists in the graph.";
+                    return "Negative cycle exists in the graph";
                 }
             }
         }
@@ -327,7 +336,7 @@ namespace ariel
         for (size_t i = 0; i < numVertices; i++) {
             if (isCycleDirected(graph, i, visited, recStack, cyclePath)) {
                 if (!cyclePath.empty()) {
-                    std::reverse(cyclePath.begin(), cyclePath.end());
+                    //std::reverse(cyclePath.begin(), cyclePath.end());
                     string result = "The cycle is: ";
                     for (size_t j = 0; j < cyclePath.size(); j++) {
                         result += std::to_string(cyclePath[j]);
@@ -345,6 +354,7 @@ namespace ariel
                 cyclePath.clear();
                 if (isCycleUndirected(graph, i, -1, visited, cyclePath)) {
                     if (!cyclePath.empty()) {
+                       // std::reverse(cyclePath.begin(), cyclePath.end());
                         string result = "The cycle is: ";
                         for (size_t j = 0; j < cyclePath.size(); j++) {
                             result += std::to_string(cyclePath[j]);
@@ -464,6 +474,12 @@ namespace ariel
                 std::vector<int> color(numVertices, -1); // -1 represents uncolored, 0 represents color 1, 1 represents color 2
                 std::vector<int> group1, group2;
 
+                //if the graph is empty
+                if (numVertices == 0)
+                {
+                    return "The graph is bipartite: A={}, B={}";
+                }
+
                 for (size_t i = 0; i < numVertices; i++)
                 {
                     if (color[i] == -1) // If the current vertex is uncolored, start BFS from it
@@ -551,7 +567,7 @@ namespace ariel
 
     if(!graph.isNegativeWeightedGraph())
     {
-        return "No negative cycle -the graph have no negative weight.";
+        return "No negative cycle.";
     }
 
 
@@ -575,7 +591,7 @@ namespace ariel
         std::vector<int> neighbors = graph.getNeighbors(u); // Get the neighbors of vertex u
         for (int v : neighbors) {
             if (distance[u] + graph.getWeight(u, (size_t)v) < distance[(size_t)v]) {
-                return "Negative cycle exists in the graph.";
+                return "Negative cycle exists in the graph";
             }
         }
     }
