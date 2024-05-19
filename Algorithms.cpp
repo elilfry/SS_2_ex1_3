@@ -467,60 +467,50 @@ namespace ariel
         
     //this fucntion check if the graph is bipartite.
     // If the graph is bipartite, then the fucntion will return the two groups, else return 0.
+string Algorithms::isBipartite(Graph& graph) {
+    size_t numVertices = graph.getSize();
+    std::vector<int> color(numVertices, -1); // -1 represents uncolored, 0 and 1 represent the two colors
+    std::vector<int> group1, group2;
 
-    string Algorithms::isBipartite(Graph& graph)
-            {
-                size_t numVertices = graph.getSize();
-                std::vector<int> color(numVertices, -1); // -1 represents uncolored, 0 represents color 1, 1 represents color 2
-                std::vector<int> group1, group2;
+    // If the graph is empty
+    if (numVertices == 0) {
+        return "The graph is bipartite: A={}, B={}";
+    }
 
-                //if the graph is empty
-                if (numVertices == 0)
+    queue<int> q;
+    color[0] = 0;
+    group1.push_back(0);
+    q.push(0);
+
+    while(!q.empty()) {
+        size_t v= (size_t)q.front();
+        q.pop();
+
+        std::vector<int> neighbors = graph.getNeighbors(v);
+        for (int neighbor : neighbors)
+         {
+            if (color[(size_t)neighbor] == -1)
+             {
+                color[(size_t)neighbor] = 1 - color[v];
+                q.push(neighbor);
+                if (color[(size_t)neighbor] == 0) {
+                    group1.push_back(neighbor);
+                } 
+                else 
                 {
-                    return "The graph is bipartite: A={}, B={}";
+                    group2.push_back(neighbor);
                 }
-
-                for (size_t i = 0; i < numVertices; i++)
-                {
-                    if (color[i] == -1) // If the current vertex is uncolored, start BFS from it
-                    {
-                        std::queue<int> q; // Queue for BFS
-                        q.push(i); // Push the current vertex to the queue
-                        color[i] = 0; // Color the current vertex with color 1
-                        group1.push_back(i); // Add the current vertex to group 1
-
-                        while (!q.empty())
-                        {
-                            int currVertex = q.front(); // Get the front vertex from the queue
-                            q.pop(); // Pop the front vertex from the queue
-
-                            std::vector<int> neighbors = graph.getNeighbors((size_t)currVertex); // Get the neighbors of the current vertex
-                            for (int neighbor : neighbors)
-                            {
-                                if (color[(size_t)neighbor] == -1) // If the neighbor is uncolored, color it with the opposite color of the current vertex
-                                {
-                                    color[(size_t)neighbor] = 1 - color[(size_t)currVertex]; // Color the neighbor with the opposite color of the current vertex
-                                    q.push(neighbor);
-
-                                    if (color[(size_t)neighbor] == 0) // If the neighbor is colored with color 1, add it to group 1
-                                    {
-                                        group1.push_back(neighbor);
-                                    }
-                                    else // If the neighbor is colored with color 2, add it to group 2
-                                    {
-                                        group2.push_back(neighbor);
-                                    }
-                                }
-                                else if (color[(size_t)neighbor] == color[(size_t)currVertex]) // If the neighbor has the same color as the current vertex, the graph is not bipartite
-                                {
-                                return "The graph is  not bipartite";
-                                }
-                            }
-                        }
-                    }
+             }
+                else if (color[(size_t)neighbor] == color[v])
+                 {
+                    return "The graph is not bipartite";
                 }
-                
-                //print the 2 groups
+         }
+             
+        }
+
+
+    //print the 2 groups
                 string result = "The graph is bipartite: A={";
                 for (size_t i = 0; i < group1.size(); i++)
                 {
@@ -543,9 +533,86 @@ namespace ariel
 
                 result += "}";
                 return result;
+}
+
+    // string Algorithms::isBipartite(Graph& graph)
+    //         {
+    //             size_t numVertices = graph.getSize();
+    //             std::vector<int> color(numVertices, -1); // -1 represents uncolored, 0 represents color 1, 1 represents color 2
+    //             std::vector<int> group1, group2;
+
+    //             //if the graph is empty
+    //             if (numVertices == 0)
+    //             {
+    //                 return "The graph is bipartite: A={}, B={}";
+    //             }
+
+    //             for (size_t i = 0; i < numVertices; i++)
+    //             {
+    //                 if (color[i] == -1) // If the current vertex is uncolored, start BFS from it
+    //                 {
+    //                     std::queue<int> q; // Queue for BFS
+    //                     q.push(i); // Push the current vertex to the queue
+    //                     color[i] = 0; // Color the current vertex with color 1
+    //                     group1.push_back(i); // Add the current vertex to group 1
+
+    //                     while (!q.empty())
+    //                     {
+    //                         int currVertex = q.front(); // Get the front vertex from the queue
+    //                         q.pop(); // Pop the front vertex from the queue
+
+    //                         std::vector<int> neighbors = graph.getNeighbors((size_t)currVertex); // Get the neighbors of the current vertex
+    //                         for (int neighbor : neighbors)
+    //                         {
+    //                             if (color[(size_t)neighbor] == -1) // If the neighbor is uncolored, color it with the opposite color of the current vertex
+    //                             {
+    //                                 color[(size_t)neighbor] = 1 - color[(size_t)currVertex]; // Color the neighbor with the opposite color of the current vertex
+    //                                 q.push(neighbor);
+
+    //                                 if (color[(size_t)neighbor] == 0) // If the neighbor is colored with color 1, add it to group 1
+    //                                 {
+    //                                     group1.push_back(neighbor);
+    //                                 }
+    //                                 else // If the neighbor is colored with color 2, add it to group 2
+    //                                 {
+    //                                     group2.push_back(neighbor);
+    //                                 }
+    //                             }
+    //                             else if (color[(size_t)neighbor] == color[(size_t)currVertex]) // If the neighbor has the same color as the current vertex, the graph is not bipartite
+    //                             {
+    //                             return "The graph is  not bipartite";
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             }
+                
+    //             //print the 2 groups
+    //             string result = "The graph is bipartite: A={";
+    //             for (size_t i = 0; i < group1.size(); i++)
+    //             {
+    //                 result += std::to_string(group1[i]);
+    //                 if (i != group1.size() - 1)
+    //                 {
+    //                     result += ", ";
+    //                 }
+    //             }
+
+    //             result += "}, B={";
+    //             for (size_t i = 0; i < group2.size(); i++)
+    //             {
+    //                 result += std::to_string(group2[i]);
+    //                 if (i != group2.size() - 1)
+    //                 {
+    //                     result += ", ";
+    //                 }
+    //             }
+
+    //             result += "}";
+    //             return result;
                 
         
-            }
+    //         }
 
 
 
