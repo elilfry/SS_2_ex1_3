@@ -2,12 +2,27 @@
 
 This is a C++ library for performing various graph algorithms. It provides functionality for checking graph properties, finding shortest paths, detecting cycles, and more. The library is composed of two main components: `Algorithms` and `Graph`.
 
+
 ## Features
 
-- **Graph Connectivity:** Check if a graph is connected.
-- **Cycle Detection:** Identify if there are cycles in directed or undirected graphs.
-- **Shortest Path:** Calculate the shortest or lightest path between two vertices using various algorithms (BFS, Dijkstra, Bellman-Ford).
-- **Graph Properties:** Determine if a graph is bipartite, check for negative cycles, and more.
+- **Graph Connectivity:** 
+  - Check if a graph is connected. This determines whether there is a path between every pair of vertices in the graph.
+
+- **Cycle Detection:** 
+  - Identify if there are cycles in both directed and undirected graphs. This is useful for detecting circular dependencies or potential infinite loops.
+
+- **Shortest Path:** 
+  - Calculate the shortest or lightest path between two vertices using various algorithms:
+    - **BFS (Breadth-First Search):** Ideal for unweighted graphs to find the shortest path.
+    - **Dijkstra's Algorithm:** Suitable for graphs with non-negative weights to find the shortest path.
+    - **Bellman-Ford Algorithm:** Handles graphs with negative weights and can detect negative weight cycles.
+
+- **is bipartite** 
+  - Determine if a graph is bipartite, meaning its vertices can be divided into two disjoint sets such that no two graph vertices within the same set are adjacent.
+- **negativeCycle**
+  - Check for negative cycles in the graph, which are cycles whose total weight is negative, indicating potential issues like arbitrage opportunities in financial graphs.
+
+ 
 
 ## Files
 
@@ -87,8 +102,4 @@ This file contains the implementation of the `Graph` class, which represents a g
 - `size_t getNumberOfVertices();`
   - Returns the number of vertices in the graph.
 
-## Usage
 
-1. Clone the repository:
-   ```sh
-   git clone <repository-url>
