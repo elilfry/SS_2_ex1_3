@@ -1,5 +1,3 @@
-#include <iostream>
-#include <vector>
 #include "Graph.hpp"
 using namespace std;
 
@@ -20,7 +18,7 @@ namespace ariel {
         }
 
         // Check if the graph is empty.
-        if (graph.size() == 0) {
+        if (graph.empty()) {
             throw invalid_argument(" Invalid_argument-The graph is empty.");
         }
 
@@ -53,7 +51,7 @@ namespace ariel {
 /*
 this function check if the graph is connected
 */
-bool Graph::isWeightedGraph(){
+auto Graph::isWeightedGraph() -> bool{
 
     size_t size = adjMatrix.size();
     for (size_t i = 0; i < size; i++) {
@@ -73,7 +71,7 @@ this function check if the graph is directed
 if the graph is syimetric the graph is not directed -false
 if the graph is  not syimetric the graph is directed - true
 */
-bool Graph::isDirectedGraph(){ 
+auto Graph::isDirectedGraph() -> bool{ 
     size_t size = adjMatrix.size();
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
@@ -87,7 +85,7 @@ bool Graph::isDirectedGraph(){
     return false;
 }
 
-size_t Graph::getNumberOfEdges() {
+auto Graph::getNumberOfEdges() -> size_t {
     size_t size = adjMatrix.size();
     int numEdges = 0;
     
@@ -99,9 +97,9 @@ size_t Graph::getNumberOfEdges() {
                 }
             }
         }
-        return (size_t)numEdges;
+        return static_cast<size_t>(numEdges);
     }
-    else{ // undirected graph
+    // undirected graph
         for (size_t i = 0; i < size; i++) {
             for (size_t j = i; j < size; j++) {
                 if (adjMatrix[i][j] != 0) {
@@ -110,10 +108,10 @@ size_t Graph::getNumberOfEdges() {
             }
         }
         return (size_t)numEdges;
-    }
+   
 
 }
-std::vector<int> Graph::getNeighbors(size_t vertex) {
+auto Graph::getNeighbors(size_t vertex) -> std::vector<int> {
     std::vector<int> neighbors;
     size_t size = adjMatrix.size();
 
@@ -126,14 +124,14 @@ std::vector<int> Graph::getNeighbors(size_t vertex) {
 }
 
 // get the size of the graph
-size_t Graph::getSize() {
+auto Graph::getSize() -> size_t {
     return adjMatrix.size();
 }
 
 /*
 this function check if the graph has negative weight
 */
-bool  Graph::isNegativeWeightedGraph(){
+auto  Graph::isNegativeWeightedGraph() -> bool{
     size_t size = adjMatrix.size();
     for (size_t i = 0; i < size; i++) {
         for (size_t j = 0; j < size; j++) {
@@ -147,11 +145,11 @@ bool  Graph::isNegativeWeightedGraph(){
 
 //getWeight
 
-int Graph::getWeight(size_t src, size_t dest) {
+auto Graph::getWeight(size_t src, size_t dest) -> int {
     return  adjMatrix[src][dest];
 }
 
-size_t Graph::getNumberOfVertices() {
+auto Graph::getNumberOfVertices() -> size_t {
     return adjMatrix.size();
 }
 
