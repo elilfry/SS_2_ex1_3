@@ -1,31 +1,94 @@
-# SS_2_ex1_3
+# Graph Algorithms Library
 
-# מטלה 1 - גרפים (Classes and Namespaces)
+This is a C++ library for performing various graph algorithms. It provides functionality for checking graph properties, finding shortest paths, detecting cycles, and more. The library is composed of two main components: `Algorithms` and `Graph`.
 
-המטרה שלכם במטלה הזאת היא ליצור מחלקה שמייצגת גרף ולממש אלגוריתמים על הגרפים (זה הזמן להזכר בקורס אלגוריתמים 1).
+## Features
 
-במטלה הזאת הייצוג של הגרף שלכם יתבצע בעזרת מטריצת שכנויות - https://he.wikipedia.org/wiki/%D7%9E%D7%98%D7%A8%D7%99%D7%A6%D7%AA_%D7%A9%D7%9B%D7%A0%D7%95%D7%AA.
+- **Graph Connectivity:** Check if a graph is connected.
+- **Cycle Detection:** Identify if there are cycles in directed or undirected graphs.
+- **Shortest Path:** Calculate the shortest or lightest path between two vertices using various algorithms (BFS, Dijkstra, Bellman-Ford).
+- **Graph Properties:** Determine if a graph is bipartite, check for negative cycles, and more.
 
-הגרף יכול להיות גרף מכוון ולא מכוון וגם גרף ממושקל. מטריצת השכנויות חייבת להיות מטריצה ריבועית.
+## Files
 
-עליכם לכתוב את הקבצים הבאים:
+### 1. Algorithms.cpp
 
-```
-Graph.cpp
-Algorithms.cpp
-```
+This file contains the implementation of various graph algorithms.
 
-הקובץ `Graph.cpp` מכיל מחלקה המייצגת גרף.
-המחלקה מכילה את הפעולות `loadGraph` המקבלת מטריצת שכנויות וטוענת אותה לתוך הגרף ו-`printGraph` שמדפיסה את הייצוג של הגרף (הפורמט לבחירתכם, ראו דוגמה ב-`Demo.cpp`).
+#### Functions
 
-הקובץ `Algorithms.cpp` מכיל מימושים לאלגוריתמים על גרפים. ביניהם:
+- `static int isConnected(Graph graph);`
+  - Checks if the graph is connected.
+  - Returns 1 if connected, 0 if not.
 
-- `isConnected(g)` - האלגוריתם מקבל גרף ומחזיר 1 אם הגרף קשיר (אחרת מחזיר 0).
-- `shortestPath(g,start,end)` - האלגוריתם מקבל גרף, קודקוד התחלה וקודקוד סיום ומחזיר את המסלול הקל ביותר (במקרה שהגרף לא ממושקל - הקצר ביותר) בין שני הקודקודים. במידה ואין מסלול כזה, האלגוריתם יחזיר -1.
-- `isContainsCycle(g)` - האלגוריתם מקבל גרף ומדפיס מעגל כלשהו. אם לא קיים מעגל בגרף, האלגוריתם יחזיר 0.
-- `isBipartite(g)` - האלגוריתם מקבל גרף ומחזיר את החלוקה של הגרף לגרף דו-צדדי. אם אי אפשר לחלק את הגרף, האלגוריתם יחזיר 0.
-- `negativeCycle(g)` - האלגוריתם מקבל גרף ומוצא מעגל שלילי (כלומר מעגל שסכום המשקלים של הצלעות שלילי). אם לא קיים מעגל כזה, האלגוריתם ידפיס שלא קיים מעגל שלילי.
+- `static void dfs(Graph& graph, std::vector<bool>& visited, size_t node);`
+  - Depth-First Search utility function.
 
-הקובץ `Demo.cpp` מכיל דוגמאות של קלטים ופלטים.
-עליכם לכתוב בתחילת כל קובץ את מספר תעודת הזהות שלכם ואת המייל. כמו כן, בנוסף לקבצים של המטלה אתם נדרשים להגיש גם קובץ README המתאר את אופן המימוש ואת החלוקה שביצעתם בקוד (סוג של מדריך משתמש). אי עמידה בהנחיות תגרור הפחתה בציון. בהצלחה!
-  
+- `static bool isCycleUndirected(Graph& graph, size_t node, int parent, std::vector<bool>& visited, std::vector<int>& path);`
+  - Checks for cycles in an undirected graph.
+
+- `static bool isCycleDirected(Graph& graph, size_t node, std::vector<bool>& visited, std::vector<bool>& recStack, std::vector<int>& path);`
+  - Checks for cycles in a directed graph.
+
+- `static string isContainsCycle(Graph& graph);`
+  - Returns a cycle in the graph if one exists, otherwise returns 0.
+
+- `static string shortestPath(Graph& graph, size_t start, size_t end);`
+  - Returns the shortest or lightest path between two vertices.
+
+- `static string bfs(Graph& graph, size_t src, size_t dest);`
+  - Uses BFS algorithm to find the shortest path.
+
+- `static string bellmanFord(Graph& graph, size_t src, size_t dest);`
+  - Uses Bellman-Ford algorithm to find the shortest path.
+
+- `static string dijkstra(Graph& graph, size_t src, size_t dest);`
+  - Uses Dijkstra's algorithm to find the shortest path.
+
+- `static string isBipartite(Graph& graph);`
+  - Checks if the graph is bipartite and returns the two groups if true, otherwise returns 0.
+
+- `static string negativeCycle(Graph& graph);`
+  - Checks for the existence of a negative cycle in the graph and returns the result.
+
+### 2. Graph.cpp
+
+This file contains the implementation of the `Graph` class, which represents a graph using an adjacency matrix.
+
+#### Functions
+
+- `void loadGraph(const std::vector<std::vector<int>>& graph);`
+  - Loads a graph from an adjacency matrix, ensuring it is a valid square matrix without self-loops.
+
+- `void printGraph();`
+  - Prints the graph's adjacency matrix.
+
+- `bool isWeightedGraph();`
+  - Checks if the graph is weighted.
+
+- `bool isDirectedGraph();`
+  - Checks if the graph is directed.
+
+- `size_t getNumberOfEdges();`
+  - Returns the number of edges in the graph.
+
+- `std::vector<int> getNeighbors(size_t vertex);`
+  - Returns the neighbors of a given vertex.
+
+- `size_t getSize();`
+  - Returns the size of the graph.
+
+- `bool isNegativeWeightedGraph();`
+  - Checks if the graph has negative weights.
+
+- `int getWeight(size_t src, size_t dest);`
+  - Returns the weight of the edge between two vertices.
+
+- `size_t getNumberOfVertices();`
+  - Returns the number of vertices in the graph.
+
+## Usage
+
+1. Clone the repository:
+   ```sh
+   git clone <repository-url>
