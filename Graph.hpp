@@ -25,7 +25,7 @@ void loadGraph(const std::vector<std::vector<int>>& graph);
 /*
 the function return the neighbors of the vertex
 @param vertex the vertex
-@return the neighbors of the vertex
+@return the neighbors of the vertex.
 */
 std::vector<int> getNeighbors(size_t vertex) ;
 
