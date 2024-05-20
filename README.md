@@ -1,4 +1,6 @@
-# Graph Algorithms Library
+# System Programming 2 - assignment 1
+Eli Frydman
+# Graph Algorithms Task
 
 This is a C++ library for performing various graph algorithms. It provides functionality for checking graph properties, finding shortest paths, detecting cycles, and more. The library is composed of two main components: `Algorithms` and `Graph`.
 
