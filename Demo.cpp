@@ -9,14 +9,11 @@
 #include "Algorithms.hpp"
 
 
-#include <iostream>
-#include <stdexcept>
-#include <vector>
 using namespace std;
 using namespace ariel;
 //i
 
-int main()
+auto main() -> int
 {
     ariel::Graph g;
     // 3x3 matrix that represents a connected graph.
