@@ -118,14 +118,24 @@ TEST_CASE("Test isBipartite")
     g.loadGraph(graph2);
     CHECK(ariel::Algorithms::isBipartite(g) == "The graph is not bipartite");
 
-    // vector<vector<int>> graph3 = {
-    //     {0, 1, 2, 0, 0},
-    //     {1, 0, 3, 0, 0},
-    //     {2, 3, 0, 4, 0},
-    //     {0, 0, 4, 0, 5},
-    //     {0, 0, 0, 5, 0}};
-    // g.loadGraph(graph3);
-    // CHECK(ariel::Algorithms::isBipartite(g) == "The graph is bipartite: A={0, 2, 4}, B={1, 3}");
+    vector<vector<int>> graph3 = {
+        {0, 1, 0, 0, 0},
+        {1, 0, 3, 0, 0},
+        {0, 3, 0, 4, 0},
+        {0, 0, 4, 0, 5},
+        {0, 0, 0, 5, 0}};
+    g.loadGraph(graph3);
+    CHECK(ariel::Algorithms::isBipartite(g) == "The graph is bipartite: A={0, 2, 4}, B={1, 3}");
+
+
+    vector<vector<int>> graph4 = {
+        {0, 1, 2, 0, 0},
+        {1, 0, 3, 0, 0},
+        {2, 3, 0, 4, 0},
+        {0, 0, 4, 0, 5},
+        {0, 0, 0, 5, 0}};
+    g.loadGraph(graph4);
+    CHECK(ariel::Algorithms::isBipartite(g) == "The graph is not bipartite");
 }
 TEST_CASE("Test invalid graph")
 {
@@ -201,3 +211,4 @@ TEST_CASE("Test negativeCycle") {
 
     
 }
+
