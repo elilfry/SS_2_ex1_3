@@ -1,3 +1,8 @@
+/*
+211691159
+elifrydman08@gmail.com
+*/
+
 #pragma once
 #ifndef ALGORITHMS_HPP
 #define ALGORITHMS_HPP
